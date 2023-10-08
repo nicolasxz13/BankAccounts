@@ -1,0 +1,55 @@
+@using BankAccounts.Models
+@model TransactionsView
+<div class="success">
+    <div class="logout">
+        <a asp-action="Logout" asp-controller="Login">Logout</a>
+    </div>
+    <div class="transactionList">
+        <h1>Welcome, @Context.Session.GetString("UserName")</h1>
+        @if (@Math.Round(Model.Totalamount, 2) == 0)
+        {
+            <p class="red">Current Balance: $@Math.Round(Model.Totalamount, 2)</p>
+
+        }
+        else
+        {
+            <p class="gren">Current Balance: $@Math.Round(Model.Totalamount, 2)</p>
+        }
+
+        <div class="form">
+            @await Html.PartialAsync("_AccountsForm",Model.Temptransactions)
+        </div>
+        <div class="trasactionTable">
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            Amount
+                        </th>
+                        <th>
+                            Date
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        foreach (var result in @Model.Transactions)
+                        {
+                            <tr>
+                                <td>@Math.Round(result.Amount, 2)</td>
+                                <td>@result.CreatedAt</td>
+                            </tr>
+                        }
+
+                    }
+                    <tr>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

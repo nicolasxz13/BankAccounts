@@ -1,0 +1,15 @@
+@using BankAccounts.Models
+@model Transactions
+@{
+    int? value = Context.Session.GetInt32("UserId");
+}
+<form asp-action="Deposit" asp-controller="Accounts" asp-route-id="@value">
+    <div class="blocksTra">
+        <label asp-for="Amount">Deposit / Withdraw: </label>
+        <input asp-for="Amount">
+        <button type="submit" class="btn1">Register</button>
+    </div>
+    <div class="blocksTra">
+        <span asp-validation-for="Amount"></span>
+    </div>
+</form>
